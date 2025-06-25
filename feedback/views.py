@@ -13,8 +13,10 @@ from django.contrib import messages
 
 from collections import defaultdict
 from django.utils.timezone import localtime
+from collections import defaultdict
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+from .forms import CustomUserCreationForm 
 
 def login_view(request):
     if request.method == 'POST':
@@ -37,9 +39,6 @@ def dashboard(request):
 
 def home(request):
     return render(request, 'feedback/home.html')
-
-
-from collections import defaultdict
 
 @login_required
 def dashboard(request):
@@ -137,15 +136,22 @@ def delete_feedback(request, pk):
 
     return render(request, 'feedback/delete_confirm.html', {'feedback': feedback})
 
+
+User = get_user_model()
+
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Account created successfully. Please log in.")
+            user = form.save(commit=False)
+            user.role = 'employee'  # Force role as employee
+            user.save()
+            messages.success(request, 'Account created! Please log in.')
             return redirect('login')
+        else:
+            messages.error(request, 'Please correct the errors below.')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
+    
     return render(request, 'feedback/signup.html', {'form': form})
 
- 

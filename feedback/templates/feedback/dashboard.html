@@ -59,7 +59,7 @@
 </head>
 <body>
 <div class="container dashboard-container">
-    <div class="dashboard-header">👋 Welcome, {{ user.username }}!</div>
+    <div class="dashboard-header"> Welcome, {{ user.username }}!</div>
     <div class="subheading">Your role: <strong>{{ user.role|title }}</strong></div>
 
     {% if user.role == 'manager' %}
