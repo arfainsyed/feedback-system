@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Feedback</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-card {
+            max-width: 600px;
+            margin: 60px auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #0d3b66;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        label {
+            font-weight: 500;
+            color: #333;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn {
+            width: 48%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-title">✏️ Edit Feedback</div>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_created_for" class="form-label">Employee</label>
+                    {{ form.created_for }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_strengths" class="form-label">Strengths</label>
+                    {{ form.strengths }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_areas_to_improve" class="form-label">Areas to Improve</label>
+                    {{ form.areas_to_improve }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_sentiment" class="form-label">Overall Sentiment</label>
+                    {{ form.sentiment }}
+                </div>
+
+                <div class="btn-group mt-4">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
