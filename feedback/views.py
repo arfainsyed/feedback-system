@@ -137,14 +137,15 @@ def delete_feedback(request, pk):
 
     return render(request, 'feedback/delete_confirm.html', {'feedback': feedback})
 
-def signup_view(request):
+def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Account created successfully. Please log in.")
             return redirect('login')
     else:
         form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'feedback/signup.html', {'form': form})
 
  
