@@ -14,6 +14,8 @@ from django.contrib import messages
 from collections import defaultdict
 from django.utils.timezone import localtime
 
+from django.contrib.auth.forms import UserCreationForm
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
@@ -33,7 +35,6 @@ def logout_view(request):
 def dashboard(request):
     return render(request, 'feedback/dashboard.html')
 
-@login_required
 def home(request):
     return render(request, 'feedback/home.html')
 
@@ -136,5 +137,14 @@ def delete_feedback(request, pk):
 
     return render(request, 'feedback/delete_confirm.html', {'feedback': feedback})
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
  
