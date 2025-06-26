@@ -82,13 +82,14 @@ def assign_feedback(request):
 @login_required
 def view_feedback(request):
     if request.user.role == 'manager':
-        # Get feedbacks given by the manager and optimize fetching the related employee
         feedbacks = Feedback.objects.filter(created_by=request.user)
+        return render(request, 'feedback/view_feedback.html', {
+            'feedbacks': feedbacks,
+            'is_manager': True
+        })
     else:
-        # Get feedbacks received by the employee
         feedbacks = Feedback.objects.filter(created_for=request.user)
 
-        # Handle employee comment submission
         if request.method == 'POST':
             feedback_id = request.POST.get('feedback_id')
             comment = request.POST.get('employee_comment')
@@ -98,8 +99,10 @@ def view_feedback(request):
             messages.success(request, "Your comment has been saved.")
             return redirect('view_feedback')
 
-    return render(request, 'feedback/view_feedback.html', {'feedbacks': feedbacks})
-
+        return render(request, 'feedback/view_feedback.html', {
+            'feedbacks': feedbacks,
+            'is_manager': False
+        })
 
 @login_required
 def acknowledge_feedback(request, pk):
@@ -136,9 +139,7 @@ def delete_feedback(request, pk):
 
     return render(request, 'feedback/delete_confirm.html', {'feedback': feedback})
 
-
 User = get_user_model()
-
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

@@ -64,12 +64,12 @@
 
     {% if user.role == 'manager' %}
         <div class="btn-group-custom">
-            <a href="{% url 'assign_feedback' %}" class="btn btn-primary">➕ Assign Feedback</a>
-            <a href="{% url 'view_feedback' %}" class="btn btn-outline-secondary">📄 View Given Feedback</a>
+            <a href="{% url 'assign_feedback' %}" class="btn btn-primary">Assign Feedback</a>
+            <a href="{% url 'view_feedback' %}" class="btn btn-outline-secondary">View Given Feedback</a>
         </div>
 
         <div class="table-card">
-            <div class="table-title">📌 Team Feedback Overview</div>
+            <div class="table-title">Team Feedback Overview</div>
             <table class="table table-bordered table-striped table-hover">
                 <thead class="table-light">
                     <tr>
