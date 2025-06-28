@@ -57,9 +57,13 @@ Visit http://127.0.0.1:8000/ in your browser to use the system.
 ## Docker Backend Setup
 # Step 1: Build Docker Image
 docker build -t feedback-backend .
-# Step 2: Run Docker Container
+# Step 2: 
+Option A: Run on Default Port (if 8000 is free)
 docker run -d -p 8000:8000 feedback-backend
-Now you can access it at http://localhost:8000
+Then access your app at: http://localhost:8000
+Option B: If Port 8000 is in use (use another port like 8080)
+docker run -d -p 8080:8000 feedback-backend
+Then access your app at:http://localhost:8080
 
 
 ## Design Decisions
